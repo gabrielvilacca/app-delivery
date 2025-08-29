@@ -92,7 +92,7 @@ const QuantityChoices = ({
   );
 };
 
-const caixinhaSup = () => {
+const CaixinhaSup = () => {
   const router = useRouter();
 
   const BASE_PRICE = 33.9; // Preço base do combo
@@ -317,4 +317,4 @@ const caixinhaSup = () => {
   );
 };
 
-export default caixinhaSup;
+export default CaixinhaSup;

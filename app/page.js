@@ -1220,8 +1220,8 @@ export default function Home() {
             Bebidas
           </h2>
           <p className="text-zinc-600 text-md mb-2">
-            Selecione as bebidas que você quer e clique no botão de "Adicionar
-            ao Carrinho".
+            Selecione as bebidas que você quer e clique no botão de
+            &quot;Adicionar ao Carrinho&quot;.
           </p>
           <Bebidas />
         </div>
