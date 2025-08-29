@@ -245,7 +245,7 @@ const ModaCasaArte = () => {
           <div>
             <div className="w-full space-y-3">
               <h3 className="text-base font-medium leading-6 text-gray-700">
-                Rafa's Moda da Casa
+                Rafa&apos;s Moda da Casa
               </h3>
               <p className="text-sm font-light text-gray-500 whitespace-pre-wrap">
                 Pão brioche artesanal, hambúrguer 180g de carne 100% bovina,

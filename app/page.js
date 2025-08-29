@@ -674,7 +674,7 @@ export default function Home() {
                 <div className="flex flex-col justify-between flex-1 p-2">
                   <div className="space-y-2">
                     <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
-                      Rafa's Chespy Bacon
+                      Rafa&apos;s Chespy Bacon
                     </h3>
                     <p className="text-sm font-normal text-gray-500 line-clamp-3">
                       2 Adicionais Grátis
@@ -710,7 +710,7 @@ export default function Home() {
                 <div className="flex flex-col justify-between flex-1 p-2">
                   <div className="space-y-2">
                     <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
-                      Rafa's Triple Bacon
+                      Rafa&apos;s Triple Bacon
                     </h3>
                     <p className="text-sm font-normal text-gray-500 line-clamp-3">
                       2 Adicionais Grátis
@@ -746,7 +746,7 @@ export default function Home() {
                 <div className="flex flex-col justify-between flex-1 p-2">
                   <div className="space-y-2">
                     <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
-                      Rafa's Salada
+                      Rafa&apos;s Salada
                     </h3>
                     <p className="text-sm font-normal text-gray-500 line-clamp-3">
                       2 Adicionais Grátis
@@ -818,7 +818,7 @@ export default function Home() {
                 <div className="flex flex-col justify-between flex-1 p-2">
                   <div className="space-y-2">
                     <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
-                      Rafa's Cheddar
+                      Rafa&apos;s Cheddar
                     </h3>
                     <p className="text-sm font-normal text-gray-500 line-clamp-3">
                       2 Adicionais Grátis
@@ -854,7 +854,7 @@ export default function Home() {
                 <div className="flex flex-col justify-between flex-1 p-2">
                   <div className="space-y-2">
                     <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
-                      Rafa's Gorgonzola Melt
+                      Rafa&apos;s Gorgonzola Melt
                     </h3>
                     <p className="text-sm font-normal text-gray-500 line-clamp-3">
                       2 Adicionais Grátis
@@ -890,7 +890,7 @@ export default function Home() {
                 <div className="flex flex-col justify-between flex-1 p-2">
                   <div className="space-y-2">
                     <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
-                      Rafa's Picanha
+                      Rafa&apos;s Picanha
                     </h3>
                     <p className="text-sm font-normal text-gray-500 line-clamp-3">
                       2 Adicionais Grátis
@@ -926,7 +926,7 @@ export default function Home() {
                 <div className="flex flex-col justify-between flex-1 p-2">
                   <div className="space-y-2">
                     <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
-                      Rafa's Brigadeiro
+                      Rafa&apos;s Brigadeiro
                     </h3>
                     <p className="text-sm font-normal text-gray-500 line-clamp-3">
                       2 Adicionais Grátis
@@ -962,7 +962,7 @@ export default function Home() {
                 <div className="flex flex-col justify-between flex-1 p-2">
                   <div className="space-y-2">
                     <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
-                      Rafa's Moda da Casa
+                      Rafa&apos;s Moda da Casa
                     </h3>
                     <p className="text-sm font-normal text-gray-500 line-clamp-3">
                       2 Adicionais Grátis

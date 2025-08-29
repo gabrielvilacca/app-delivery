@@ -245,7 +245,7 @@ const ChespyArte = () => {
           <div>
             <div className="w-full space-y-3">
               <h3 className="text-base font-medium leading-6 text-gray-700">
-                Rafa's Chespy Bacon
+                Rafa&apos;s Chespy Bacon
               </h3>
               <p className="text-sm font-light text-gray-500 whitespace-pre-wrap">
                 Pão rústico artesanal, hambúrguer 200g blend costela e acém,

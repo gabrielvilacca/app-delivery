@@ -245,7 +245,7 @@ const CheddarArte = () => {
           <div>
             <div className="w-full space-y-3">
               <h3 className="text-base font-medium leading-6 text-gray-700">
-                Rafa's Cheddar{" "}
+                Rafa&apos;s Cheddar{" "}
               </h3>
               <p className="text-sm font-light text-gray-500 whitespace-pre-wrap">
                 Pão australiano, dois hambúrgueres artesanais grelhados, uma

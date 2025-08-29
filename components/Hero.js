@@ -120,7 +120,7 @@ export default function Hero() {
       <div className="relative z-10 -mt-12 p-4 bg-white rounded-3xl border border-border text-black">
         <div className="flex flex-col gap-2 items-center">
           <h1 className="text-3xl text-zinc-800 font-bold mt-12 mb-2">
-            Rafa's Burguer
+            Rafa&apos;s Burguer
           </h1>
           <div className="flex items-center text-sm md:text-base text-gray-600 mb-2">
             <svg

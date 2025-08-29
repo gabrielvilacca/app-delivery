@@ -245,7 +245,7 @@ const BrigadeiroArte = () => {
           <div>
             <div className="w-full space-y-3">
               <h3 className="text-base font-medium leading-6 text-gray-700">
-                Rafa's Brigadeiro
+                Rafa&apos;s Brigadeiro
               </h3>
               <p className="text-sm font-light text-gray-500 whitespace-pre-wrap">
                 Pão de cacau macio, recheado com ganache de chocolate meio
