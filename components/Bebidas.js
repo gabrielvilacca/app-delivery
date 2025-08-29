@@ -54,63 +54,63 @@ const bebidas = [
     id: "fantalitro",
     nome: "Fanta Original 2l",
     descricao: "Garrafa 2l",
-    preco: 10.0,
+    preco: 7.0,
     imagem: FantaLitro,
   },
   {
     id: "fantalata",
     nome: "Fanta Zero 350ml",
     descricao: "Lata 350l",
-    preco: 7.0,
+    preco: 4.0,
     imagem: FantaLata,
   },
   {
     id: "fantauva",
     nome: "Fanta Uva 350ml",
     descricao: "Lata 350ml",
-    preco: 7.0,
+    preco: 4.0,
     imagem: FantaUvaLata,
   },
   {
     id: "guaranalitro",
     nome: "Guaraná Original 2l",
     descricao: "Garrafa 2l",
-    preco: 10.0,
+    preco: 7.0,
     imagem: GuaranaLitro,
   },
   {
     id: "guaranalata",
     nome: "Guaraná Original 350ml",
     descricao: "Lata 350ml",
-    preco: 7.0,
+    preco: 4.0,
     imagem: GuaranaLata,
   },
   {
     id: "pepsilitro",
     nome: "Pepsi Original 2l",
     descricao: "Garrafa 2l",
-    preco: 10.0,
+    preco: 7.0,
     imagem: PepsiLitro,
   },
   {
     id: "pepsizerolitro",
     nome: "Pepsi Zero 2l",
     descricao: "Garrafa 2l",
-    preco: 10.0,
+    preco: 7.0,
     imagem: PepsiZeroLitro,
   },
   {
     id: "pepsilata",
     nome: "Pepsi Original 350ml",
     descricao: "Lata 350ml",
-    preco: 7.0,
+    preco: 4.0,
     imagem: PepsiLata,
   },
   {
     id: "spritelitro",
     nome: "Sprite Original 2l",
     descricao: "Garrafa 2l",
-    preco: 10.0,
+    preco: 7.0,
     imagem: SpriteLitro,
   },
 ];
@@ -226,12 +226,14 @@ const Bebidas = () => {
           </Card>
         ))}
       </div>
-      <div className="sticky my-4 p-4 bg-white border-t flex items-center justify-between space-x-4 border-gray-200 shadow-md">
+      <div className="sticky my-4 flex items-center justify-between space-x-4 border-gray-200 shadow-md">
         <button
           onClick={handleAddToCart}
-          className="flex-1 flex items-center justify-center w-full py-4 text-white bg-green-400 rounded-lg hover:bg-green-500 transition-colors"
+          className="flex flex-col items-center justify-center w-full py-4 text-white bg-green-400 rounded-lg hover:bg-green-500 transition-colors"
         >
-          <span className="font-bold text-xl">Adicionar ao Carrinho</span>
+          <span className="font-bold text-xl">
+            Adicionar Bebida Selecionada
+          </span>
           <span className="ml-2 font-bold text-xl">R${totalValue}</span>
         </button>
       </div>

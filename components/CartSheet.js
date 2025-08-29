@@ -37,21 +37,46 @@ export const CartSheet = ({ open, onOpenChange }) => {
   useEffect(() => {
     let newSubtotal = 0;
     carrinho.forEach((item) => {
-      newSubtotal += item.valorTotal;
+      newSubtotal += parseFloat(item.valorTotal);
     });
     setSubtotal(newSubtotal);
   }, [carrinho]);
 
-  // Nova função para remover um item do carrinho
   const handleRemoveItem = (indexToRemove) => {
-    // Cria um novo array filtrando o item a ser removido pelo seu índice
     const newCarrinho = carrinho.filter((_, index) => index !== indexToRemove);
-
-    // Atualiza o estado do carrinho
     setCarrinho(newCarrinho);
-
-    // Atualiza o localStorage para persistir a mudança
     localStorage.setItem("carrinho", JSON.stringify(newCarrinho));
+  };
+
+  const getDialogContent = () => {
+    switch (paymentMethod) {
+      case "pix":
+        return <PaymentForm />;
+      case "card":
+        return <CardForm />;
+      default:
+        return (
+          <>
+            <DialogDescription>
+              Selecione como você gostaria de pagar o seu pedido.
+            </DialogDescription>
+            <div className="grid gap-4 py-4">
+              <button
+                onClick={() => setPaymentMethod("pix")}
+                className="w-full bg-black text-yellow-400 font-bold py-3 rounded-md hover:bg-black/80 transition-colors"
+              >
+                Pix
+              </button>
+              <button
+                onClick={() => setPaymentMethod("card")}
+                className="w-full bg-black text-yellow-400 font-bold py-3 rounded-md hover:bg-black/80 transition-colors"
+              >
+                Cartão de Crédito
+              </button>
+            </div>
+          </>
+        );
+    }
   };
 
   return (
@@ -83,10 +108,9 @@ export const CartSheet = ({ open, onOpenChange }) => {
                 </div>
 
                 <span className="font-semibold">
-                  R$ {item.valorTotal.toFixed(2).replace(".", ",")}
+                  R$ {parseFloat(item.valorTotal).toFixed(2).replace(".", ",")}
                 </span>
 
-                {/* Botão de remover o item */}
                 <button
                   onClick={() => handleRemoveItem(index)}
                   className="text-red-500 hover:text-red-700 transition-colors"
@@ -125,7 +149,6 @@ export const CartSheet = ({ open, onOpenChange }) => {
           <span>R$ {subtotal.toFixed(2).replace(".", ",")}</span>
         </div>
 
-        {/* Modal para as opções de pagamento */}
         <Dialog onOpenChange={() => setPaymentMethod(null)}>
           <DialogTrigger asChild>
             <button className="mt-4 w-full py-4 text-black bg-yellow-400 rounded-lg font-bold text-xl hover:bg-yellow-600 transition-colors">
@@ -133,34 +156,10 @@ export const CartSheet = ({ open, onOpenChange }) => {
             </button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
-            {paymentMethod === "pix" ? (
-              <PaymentForm />
-            ) : paymentMethod === "card" ? (
-              <CardForm />
-            ) : (
-              <>
-                <DialogHeader>
-                  <DialogTitle>Escolha o método de pagamento</DialogTitle>
-                  <DialogDescription>
-                    Selecione como você gostaria de pagar o seu pedido.
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                  <button
-                    onClick={() => setPaymentMethod("pix")}
-                    className="w-full bg-black text-yellow-400 font-bold py-3 rounded-md hover:bg-black/80 transition-colors"
-                  >
-                    Pix
-                  </button>
-                  <button
-                    onClick={() => setPaymentMethod("card")}
-                    className="w-full bg-black text-yellow-400 font-bold py-3 rounded-md hover:bg-black/80 transition-colors"
-                  >
-                    Cartão de Crédito
-                  </button>
-                </div>
-              </>
-            )}
+            <DialogHeader>
+              <DialogTitle>Finalizar Pedido</DialogTitle>
+            </DialogHeader>
+            {getDialogContent()}
           </DialogContent>
         </Dialog>
       </div>

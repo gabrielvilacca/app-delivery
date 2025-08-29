@@ -33,24 +33,12 @@ import MiniBurgers from "@/public/combos/mini-burgers.jpeg";
 import DoubleCheeseburger from "@/public/combos/double-cheeseburger.jpeg";
 import DuploBurger from "@/public/combos/duploBurger.jpeg";
 import DoubleChicken from "@/public/combos/double-chicken.jpeg";
+import BatataFrita from "@/public/combos/BatataFrita.jpeg";
 import Monstro from "@/public/mais-vendidos/monstro.jpeg";
 import BaconSalad from "@/public/mais-vendidos/BaconSalad.jpeg";
 import Power from "@/public/mais-vendidos/power.jpeg";
 import FritasOverloaded from "@/public/mais-vendidos/fritas-overloaded.jpeg";
 import CaixinhaBurger from "@/public/super-combos/caixinha-burger.jpeg";
-import CocaLitro from "@/public/bebidas/coca-litro.jpg";
-import CocaZeroLitro from "@/public/bebidas/coca-zero-litro.jpeg";
-import CocaLata from "@/public/bebidas/coca-lata.jpg";
-import CocaZeroLata from "@/public/bebidas/coca-zero-lata.jpg";
-import FantaLata from "@/public/bebidas/fanta-lata.png";
-import FantaLitro from "@/public/bebidas/fanta-litro.jpeg";
-import FantaUvaLata from "@/public/bebidas/fanta-uva-lata.png";
-import GuaranaLata from "@/public/bebidas/guarana-lata.jpeg";
-import GuaranaLitro from "@/public/bebidas/guarana-litro.jpg";
-import PepsiLata from "@/public/bebidas/pepsi-lata.jpg";
-import PepsiLitro from "@/public/bebidas/pepsi-litro.jpeg";
-import PepsiZeroLitro from "@/public/bebidas/pepsi-zero-litro.jpg";
-import SpriteLitro from "@/public/bebidas/sprite-litro.jpg";
 import PequenoMedio from "@/public/sorvetes/pequeno-medio.jpeg";
 import Grande from "@/public/sorvetes/grande.jpeg";
 import BarcaAcai from "@/public/sorvetes/barca.jpeg";
@@ -119,11 +107,11 @@ export default function Home() {
                 </svg>
               </div>
             </div>
-            <span className="text-lg font-medium">Promoção de Inauguração</span>
+            <span className="text-lg font-medium">Promoção de Aniversário</span>
           </div>
           <div className="flex flex-col flex-1 space-y-2">
             <span className="text-md">
-              <span className="font-medium">15% de desconto</span> em qualquer
+              <span className="font-medium">55% de desconto</span> em qualquer
               combo ou lanche!
             </span>
           </div>
@@ -256,6 +244,46 @@ export default function Home() {
                     <div className="lazyload-wrapper w-full h-full">
                       <Image
                         src={Festa}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/combos/miniBurgers" passHref>
+              <Card className="border-2 border-yellow-400 shadow-lg shadow-yellow-400 animate-scale-pulse  relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Mini Burgers no Brioche
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 ">
+                      🍔 Mini Burgers no Brioche – carne bovina suculenta +
+                      cheddar derretido 🧀 🍟 Batata Cheddar & Bacon – fritas
+                      crocantes + cheddar cremoso 🧡 + bacon triturado 🥓 +
+                      cebolinha 🌱 🧅 Onion Rings – cebola empanada crocante +
+                      molho cheddar 🧀
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 32,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 75,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={MiniBurgers}
                         alt="Compre 12 Esfihas com [15% off]"
                         className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
                       />
@@ -511,46 +539,6 @@ export default function Home() {
             Combos
           </h2>
           <div className="flex flex-col gap-4">
-            <Link href="/combos/miniBurgers" passHref>
-              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
-                <div className="flex flex-col justify-between flex-1 p-2">
-                  <div className="space-y-2">
-                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
-                      Mini Burgers no Brioche
-                    </h3>
-                    <p className="text-sm font-normal text-gray-500 ">
-                      🍔 Mini Burgers no Brioche – carne bovina suculenta +
-                      cheddar derretido 🧀 🍟 Batata Cheddar & Bacon – fritas
-                      crocantes + cheddar cremoso 🧡 + bacon triturado 🥓 +
-                      cebolinha 🌱 🧅 Onion Rings – cebola empanada crocante +
-                      molho cheddar 🧀
-                    </p>
-                  </div>
-                  <div className="mt-3 md:mt-6">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-lg font-bold text-green-700">
-                        R$ 32,90
-                      </span>
-                      <span className="text-sm text-gray-500 line-through">
-                        R$ 75,90
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="p-1 ml-4">
-                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
-                    <div className="lazyload-wrapper w-full h-full">
-                      <Image
-                        src={MiniBurgers}
-                        alt="Compre 12 Esfihas com [15% off]"
-                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            </Link>
-
             <Link href="/combos/doubleCheeseburger" passHref>
               <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
                 <div className="flex flex-col justify-between flex-1 p-2">
@@ -655,6 +643,42 @@ export default function Home() {
                     <div className="lazyload-wrapper w-full h-full">
                       <Image
                         src={DoubleChicken}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/combos/batata-frita" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Combo batata frita{" "}
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 ">
+                      Pague 1 leve 3
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 12,00
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 23,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={BatataFrita}
                         alt="Compre 12 Esfihas com [15% off]"
                         className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
                       />
@@ -1221,7 +1245,7 @@ export default function Home() {
           </h2>
           <p className="text-zinc-600 text-md mb-2">
             Selecione as bebidas que você quer e clique no botão de
-            &quot;Adicionar ao Carrinho&quot;.
+            &quot;Adicionar Bebida Selecionada&quot;.
           </p>
           <Bebidas />
         </div>

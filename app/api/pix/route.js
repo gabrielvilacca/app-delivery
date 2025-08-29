@@ -1,10 +1,7 @@
-// app/api/gerar-pix/route.js
-
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
-    // 1. Receber os dados do cliente do frontend
     const { totalAmount, client, orderItems } = await req.json();
 
     if (
@@ -20,21 +17,24 @@ export async function POST(req) {
       );
     }
 
-    // 2. Montar o corpo da requisição para o gateway
+    // Obter o host de forma mais robusta em Next.js
+    const callbackUrl = `${req.nextUrl.origin}/api/webhook/ninjapay`;
+
     const ninjapayBody = {
       identifier: `pedido-${Date.now()}-${Math.random()
         .toString(36)
         .substring(2, 8)}`,
-      amount: totalAmount,
+      // Converter para número antes de enviar para a API da NinjaPay
+      amount: parseFloat(totalAmount),
       client: {
         name: client.name,
         email: client.email,
         phone: client.phone,
         document: client.document,
       },
+      callbackUrl: callbackUrl,
     };
 
-    // 3. Fazer a requisição para a API da NinjaPay
     const response = await fetch(
       "https://app.ninjapaybr.com/api/v1/gateway/pix/receive",
       {
@@ -58,7 +58,6 @@ export async function POST(req) {
       );
     }
 
-    // 4. Retornar a resposta da API para o frontend
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     console.error("Erro no servidor:", error);
