@@ -17,6 +17,46 @@ import { ShoppingBag } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { CartSheet } from "@/components/CartSheet";
+import Coments from "@/components/Coments";
+import Chespy from "@/public/artesanal/chespy-bacon.png";
+import TripleBacon from "@/public/artesanal/triple-bacon.png";
+import Salada from "@/public/artesanal/salada.png";
+import DoubleBacon from "@/public/artesanal/double-bacon.png";
+import Cheddar from "@/public/artesanal/cheddar.png";
+import Barca from "@/public/artesanal/barca.jpeg";
+import Gorgonzola from "@/public/artesanal/gorgonzola.png";
+import Picanha from "@/public/artesanal/picanha.png";
+import Brigadeiro from "@/public/artesanal/brigadeiro.png";
+import ModaCasa from "@/public/artesanal/moda-casa.png";
+import Chicken from "@/public/artesanal/chicken.jpeg";
+import MiniBurgers from "@/public/combos/mini-burgers.jpeg";
+import DoubleCheeseburger from "@/public/combos/double-cheeseburger.jpeg";
+import DuploBurger from "@/public/combos/duploBurger.jpeg";
+import DoubleChicken from "@/public/combos/double-chicken.jpeg";
+import Monstro from "@/public/mais-vendidos/monstro.jpeg";
+import BaconSalad from "@/public/mais-vendidos/BaconSalad.jpeg";
+import Power from "@/public/mais-vendidos/power.jpeg";
+import FritasOverloaded from "@/public/mais-vendidos/fritas-overloaded.jpeg";
+import CaixinhaBurger from "@/public/super-combos/caixinha-burger.jpeg";
+import CocaLitro from "@/public/bebidas/coca-litro.jpg";
+import CocaZeroLitro from "@/public/bebidas/coca-zero-litro.jpeg";
+import CocaLata from "@/public/bebidas/coca-lata.jpg";
+import CocaZeroLata from "@/public/bebidas/coca-zero-lata.jpg";
+import FantaLata from "@/public/bebidas/fanta-lata.png";
+import FantaLitro from "@/public/bebidas/fanta-litro.jpeg";
+import FantaUvaLata from "@/public/bebidas/fanta-uva-lata.png";
+import GuaranaLata from "@/public/bebidas/guarana-lata.jpeg";
+import GuaranaLitro from "@/public/bebidas/guarana-litro.jpg";
+import PepsiLata from "@/public/bebidas/pepsi-lata.jpg";
+import PepsiLitro from "@/public/bebidas/pepsi-litro.jpeg";
+import PepsiZeroLitro from "@/public/bebidas/pepsi-zero-litro.jpg";
+import SpriteLitro from "@/public/bebidas/sprite-litro.jpg";
+import PequenoMedio from "@/public/sorvetes/pequeno-medio.jpeg";
+import Grande from "@/public/sorvetes/grande.jpeg";
+import BarcaAcai from "@/public/sorvetes/barca.jpeg";
+import Familia from "@/public/promocao/familia.jpeg";
+import Festa from "@/public/promocao/festa.jpeg";
+import Bebidas from "@/components/Bebidas";
 
 export default function Home() {
   const [cartSummary, setCartSummary] = useState(null);
@@ -31,7 +71,8 @@ export default function Home() {
 
     carrinho.forEach((item) => {
       totalQuantidade += item.quantidade;
-      totalValor += item.valorTotal;
+      // CONVERSÃO DE STRING PARA NÚMERO
+      totalValor += parseFloat(item.valorTotal);
     });
 
     if (totalQuantidade > 0) {
@@ -43,71 +84,30 @@ export default function Home() {
     } else {
       setCartSummary(null);
     }
-  }, []); // Use [] se o localStorage não muda, ou uma variável de estado que o atualize
+  }, []);
+
+  // Função para lidar com a navegação na página
+  const handleScrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      // Usa scrollIntoView para rolar suavemente até o elemento
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <section className="relative w-full bg-[#f4f5f7]">
       <Hero />
       <div className="flex flex-col p-4 gap-4">
-        <DropdownMenu>
-          <DropdownMenuTrigger className="flex justify-between items-center h-12 p-2 bg-white w-full rounded border border-border hover:bg-slate-100 duration-200">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-6 text-zinc-600"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-              />
-            </svg>
-
-            <span className="font-semibold text-zinc-600 text-sm">
-              Calcular taxa e tempo de entrega
-            </span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-6 text-zinc-600"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m8.25 4.5 7.5 7.5-7.5 7.5"
-              />
-            </svg>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>
-              Como você quer receber o pedido?
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Entrega</DropdownMenuItem>
-            <DropdownMenuItem>Retirada</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        <div className="flex flex-col p-3 bg-black/90 text-white border space-y-3 rounded-md">
-          <div class="flex items-center space-x-3">
-            <div class="flex-shrink-0">
-              <div class="p-2 rounded-full bg-yellow-400 shadow-lg text-black shadow-yellow-500/50">
+        <div className="flex flex-col p-3 bg-black/90 text-white border border-gray-700 space-y-3 rounded-md animate-shadow-pulse">
+          <div className="flex items-center space-x-3">
+            <div className="flex-shrink-0">
+              <div className="p-2 rounded-full bg-yellow-400 shadow-lg text-black shadow-yellow-500/50">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  strokeWidth={1.5}
+                  strokeWidth="1.5"
                   stroke="currentColor"
                   className="size-6"
                 >
@@ -119,12 +119,12 @@ export default function Home() {
                 </svg>
               </div>
             </div>
-            <span class="text-lg font-medium ">Promoção de Inuguração</span>{" "}
+            <span className="text-lg font-medium">Promoção de Inauguração</span>
           </div>
-          <div class="flex flex-col flex-1 space-y-2">
-            <span class=" text-md">
-              <span class="font-medium">15% de desconto</span> em qualquer combo
-              ou lanche!
+          <div className="flex flex-col flex-1 space-y-2">
+            <span className="text-md">
+              <span className="font-medium">15% de desconto</span> em qualquer
+              combo ou lanche!
             </span>
           </div>
         </div>
@@ -150,20 +150,288 @@ export default function Home() {
             </svg>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-full text-lg font-semibold">
-            <DropdownMenuItem>Promoção de Hoje!</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => handleScrollToSection("promocao")}>
+              Promoção de Hoje!
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Os Mais Vendidos</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => handleScrollToSection("mais-vendidos")}
+            >
+              Os Mais Vendidos
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Super Combos</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => handleScrollToSection("super-combos")}
+            >
+              Super Combos
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Do Seu Jeitinho</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => handleScrollToSection("combos")}>
+              Combos
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Bebidas</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => handleScrollToSection("artesanal")}
+            >
+              Hambúrguer Artesanal{" "}
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => handleScrollToSection("sorvetes")}>
+              Sorvetes
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => handleScrollToSection("bebidas")}>
+              Bebidas
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 
         <div className="">
-          <h2 className="font-bold text-zinc-800 text-xl mb-2">Super Combos</h2>
+          <h2 id="promocao" className="font-bold text-zinc-800 text-xl mb-2">
+            Promoção de Hoje!
+          </h2>
+          <div className="flex flex-col gap-4">
+            <Link href="/promocao/familia" passHref>
+              <Card className="border-2 border-yellow-400 shadow-lg shadow-yellow-400 animate-scale-pulse relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer ">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Combo Família
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 ">
+                      2 Pizzas Grandes (Calabresa, Mussarela ou Toscana) + 1
+                      Refri 2L à escolha
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 59,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 80,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={Familia}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/promocao/festa" passHref>
+              <Card className="border-2 border-yellow-400 shadow-lg shadow-yellow-400 animate-scale-pulse relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Mega Combo Festa
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 ">
+                      4 Pizzas Grandes (sabores à escolha) + 2 Refrigerantes de
+                      2L
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 90,00
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 159,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={Festa}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+          </div>
+
+          <h2
+            id="mais-vendidos"
+            className="font-bold text-zinc-800 text-xl my-4"
+          >
+            Os Mais Vendidos
+          </h2>
+          <div className="flex flex-col gap-4">
+            <Link href="/mais-vendidos/monstro" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Burger Monstro
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 ">
+                      pão com gergelim 🌟 + dupla de carnes smash 🥩🔥 + cheddar
+                      derretido 🧀 + bacon crocante 🥓 + mac & cheese cremoso
+                      🍝🧡 + temperinho verde 🌱
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 17,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 40,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={Monstro}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/mais-vendidos/baconSalad" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Bacon Salad Burger
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 ">
+                      pão com gergelim ✨ + carne bovina 🥩 + queijo 🧀 + bacon
+                      🥓 + alface 🥬 + molho cremoso 🤤 🍟 Porção de fritas
+                      douradinhas 🥫 Molho American Burger pra turbinar o sabor
+                      🧡
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 24,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 59,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={BaconSalad}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/mais-vendidos/fritasOverloaded" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Fritas Overloaded
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 ">
+                      batata crocante + cheddar cremoso 🧡 + bacon em tiras
+                      suculentas 🥓 🥫 Molhos especiais: 🌿 Verde temperado | 🍯
+                      Barbecue | 🧀 Cheddar/Maionese
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 16,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 39,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={FritasOverloaded}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/mais-vendidos/power" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Burger Power
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500">
+                      3 carnes smash 🥩🔥 + 3 queijos cheddar 🧀 + bacon
+                      crocante 🥓 + 2 ovos fritos 🍳🍳 no brioche fofinho ✨{" "}
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 21,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 45,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={Power}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+          </div>
+
+          <h2
+            id="super-combos"
+            className="font-bold text-zinc-800 text-xl my-4"
+          >
+            Super Combos
+          </h2>
           <div className="flex flex-col gap-3">
             <Link href="/supercombo/master" passHref>
               <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
@@ -202,26 +470,24 @@ export default function Home() {
               </Card>
             </Link>
 
-            <Link href="/supercombo/familia" passHref>
+            <Link href="/supercombo/caixinha" passHref>
               <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
                 <div className="flex flex-col justify-between flex-1 p-2">
                   <div className="space-y-2">
                     <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
-                      Combo Familia – A Casa Toda
+                      Caixinha Burger
                     </h3>
-                    <p className="text-sm font-light text-gray-500 line-clamp-3">
-                      2 Pizzas Grandes (sabores à escolha), 4 Hambúrgueres
-                      Artesanais, 1 Barca de Batata Cheddar e Bacon, 2
-                      Refrigerantes de 2L
+                    <p className="text-sm font-light text-gray-500 ">
+                      6 mini burgers no brioche fofinho 🥩🧀 🍗 Franguinhos
+                      crocantes empanados 🤎 🍟 Fritas cheddar & bacon
+                      irresistíveis 🧀🥓
                     </p>
                   </div>
                   <div className="mt-3 md:mt-6">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-base text-green-500">
-                        R$ 149,90
-                      </span>
+                      <span className="text-base text-green-500">R$ 33,90</span>
                       <span className="text-sm text-gray-500 line-through">
-                        R$ 259,00
+                        R$ 59,00
                       </span>
                     </div>
                   </div>
@@ -230,7 +496,7 @@ export default function Home() {
                   <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
                     <div className="lazyload-wrapper w-full h-full">
                       <Image
-                        src={Combo}
+                        src={CaixinhaBurger}
                         alt="Compre 12 Esfihas com [15% off]"
                         className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
                       />
@@ -240,7 +506,728 @@ export default function Home() {
               </Card>
             </Link>
           </div>
+
+          <h2 id="combos" className="font-bold text-zinc-800 text-xl my-4">
+            Combos
+          </h2>
+          <div className="flex flex-col gap-4">
+            <Link href="/combos/miniBurgers" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Mini Burgers no Brioche
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 ">
+                      🍔 Mini Burgers no Brioche – carne bovina suculenta +
+                      cheddar derretido 🧀 🍟 Batata Cheddar & Bacon – fritas
+                      crocantes + cheddar cremoso 🧡 + bacon triturado 🥓 +
+                      cebolinha 🌱 🧅 Onion Rings – cebola empanada crocante +
+                      molho cheddar 🧀
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 32,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 75,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={MiniBurgers}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/combos/doubleCheeseburger" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Double Cheeseburger{" "}
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 ">
+                      2 carnes smash 🥩🔥 + cheddar derretido 🧀 + molho
+                      especial 🥤 Guaraná geladinho 🟢 🍪 Cookie de sobremesa 🍫
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 19,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 39,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={DoubleCheeseburger}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/combos/duplo-bacon" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Smash Duplo + Bacon Burger{" "}
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500">
+                      🍔 Smash Duplo – duas carnes suculentas 🥩🔥 + cheddar
+                      derretido 🧀 🍔 Bacon Burger – carne smash 🥩 + bacon
+                      crocante 🥓 + cheddar 🧡{" "}
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 23,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 39,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={DuploBurger}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/combos/doubleChicken" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Double Chicken Burger{" "}
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 ">
+                      2 filés de frango empanado crocante 🍗 + alface 🥬 +
+                      tomate 🍅 + maionese cremosa 🤍 🥤 Coca-Cola gelada 🥶 🍪
+                      Cookies doces na medida 🍫
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 19,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 45,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={DoubleChicken}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+          </div>
+
+          <h2 id="artesanal" className="font-bold text-zinc-800 text-xl my-4">
+            Hambúrguer Artesanal
+          </h2>
+          <div className="flex flex-col gap-4">
+            <Link href="/artesanal/chespy" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Rafa's Chespy Bacon
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 line-clamp-3">
+                      2 Adicionais Grátis
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 23,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 45,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={Chespy}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/artesanal/tripleBacon" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Rafa's Triple Bacon
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 line-clamp-3">
+                      2 Adicionais Grátis
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 27,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 59,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={TripleBacon}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/artesanal/salada" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Rafa's Salada
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 line-clamp-3">
+                      2 Adicionais Grátis
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 26,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 39,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={Salada}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/artesanal/doubleSmash" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Double Bacon Smash
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 line-clamp-3">
+                      2 Adicionais Grátis
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 26,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 45,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={DoubleBacon}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/artesanal/cheddar" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Rafa's Cheddar
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 line-clamp-3">
+                      2 Adicionais Grátis
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 23,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 34,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={Cheddar}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/artesanal/gorgonzola" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Rafa's Gorgonzola Melt
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 line-clamp-3">
+                      2 Adicionais Grátis
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 21,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 38,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={Gorgonzola}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/artesanal/picanha" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Rafa's Picanha
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 line-clamp-3">
+                      2 Adicionais Grátis
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 27,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 47,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={Picanha}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/artesanal/brigadeiro" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Rafa's Brigadeiro
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 line-clamp-3">
+                      2 Adicionais Grátis
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 19,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 28,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={Brigadeiro}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/artesanal/moda-casa" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Rafa's Moda da Casa
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 line-clamp-3">
+                      2 Adicionais Grátis
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 24,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 49,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={ModaCasa}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/artesanal/chicken" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Chicken Burger
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 line-clamp-3">
+                      2 Adicionais Grátis
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 24,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 49,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={Chicken}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/artesanal/barca" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      BARCA CHEDDAR BOAT{" "}
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 ">
+                      2 lanches duplos no pão brioche Piscina de cheddar cremoso
+                      Farofa de bacon por todo lado E batata pra fechar o combo
+                      com chave de ouro.. SERVE 2 PESSOAS{" "}
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 24,90
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 49,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={Barca}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+          </div>
+
+          <h2 id="sorvetes" className="font-bold text-zinc-800 text-xl my-4">
+            Sorvetes
+          </h2>
+          <div className="flex flex-col gap-4">
+            <Link href="/sorvetes/pequeno" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Açaí 300ml
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 ">
+                      A porção perfeita para quem quer se refrescar com muito
+                      sabor! Cremoso, geladinho e com adicionais grátis 🍌🍫🥜
+                      para você montar do seu jeito. 👉 Dica: leve 2 e garanta
+                      ainda mais sabor por um preço que cabe no bolso!
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 10,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={PequenoMedio}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/sorvetes/medio" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Açaí 500ml
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 ">
+                      Nosso tamanho mais pedido! A porção ideal para matar a
+                      fome com muito sabor, super cremoso e com adicionais
+                      grátis 🍌🍫🥜 pra você montar a combinação perfeita. 👉
+                      Peça 2 de 500ml e tenha o combo perfeito pra compartilhar!
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 16,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={PequenoMedio}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/sorvetes/grande" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Açaí 700ml
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500">
+                      Uma explosão de sabor e fartura! Açaí cremoso, geladinho,
+                      servido em grande estilo, com adicionais grátis 🍌🍓🍫🥜
+                      pra você montar do seu jeito.
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 23,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={Grande}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/sorvetes/barca" passHref>
+              <Card className="border border-border relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Barca de Açaí
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500">
+                      Uma explosão de sabor e fartura! Açaí cremoso, geladinho,
+                      servido em grande estilo, com adicionais grátis 🍌🍓🍫🥜
+                      pra você montar do seu jeito. 👉 Ideal para compartilhar
+                      com a galera ou se deliciar sozinho(a) sem pressa!
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 27,90
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={BarcaAcai}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+          </div>
+
+          <h2 id="bebidas" className="font-bold text-zinc-800 text-xl mt-2">
+            Bebidas
+          </h2>
+          <p className="text-zinc-600 text-md mb-2">
+            Selecione as bebidas que você quer e clique no botão de "Adicionar
+            ao Carrinho".
+          </p>
+          <Bebidas />
         </div>
+
+        {/* Comentarios */}
+        <Coments />
       </div>
       {/* Botão flutuante "Ver sacola" */}
       {/* Botão flutuante "Ver sacola" */}

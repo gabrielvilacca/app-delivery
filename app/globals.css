@@ -118,3 +118,34 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Define a animação personalizada para a sombra */
+@keyframes shadow-pulse {
+  0% {
+    box-shadow: 0 0 20px rgba(255, 255, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 255, 0, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(255, 255, 0, 0.4);
+  }
+}
+
+/* Aplica a animação à classe personalizada */
+.animate-shadow-pulse {
+  animation: shadow-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes scale-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+.animate-scale-pulse {
+  animation: scale-pulse 2s ease-in-out infinite;
+}
