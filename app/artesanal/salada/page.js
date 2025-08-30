@@ -94,7 +94,7 @@ const QuantityChoices = ({
 const SaladaArte = () => {
   const router = useRouter();
 
-  const BASE_PRICE = 26.9; // Preço base do combo
+  const BASE_PRICE = 19.9; // Preço base do combo
 
   // Estado para gerenciar as escolhas do cliente
   const [escolhas, setEscolhas] = useState({
@@ -256,7 +256,7 @@ const SaladaArte = () => {
             </div>
             <div className="mt-3 md:mt-6">
               <div className="flex flex-wrap font-semibold items-center gap-2">
-                <span className="text-base text-green-500">R$ 26,90</span>
+                <span className="text-base text-green-500">R$ 19,90</span>
                 <span className="text-sm text-gray-500 line-through">
                   R$ 39,90
                 </span>

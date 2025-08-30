@@ -743,7 +743,7 @@ export default function Home() {
                   <div className="mt-3 md:mt-6">
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="text-lg font-bold text-green-700">
-                        R$ 27,90
+                        R$ 19,90
                       </span>
                       <span className="text-sm text-gray-500 line-through">
                         R$ 59,90
@@ -779,7 +779,7 @@ export default function Home() {
                   <div className="mt-3 md:mt-6">
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="text-lg font-bold text-green-700">
-                        R$ 26,90
+                        R$ 19,90
                       </span>
                       <span className="text-sm text-gray-500 line-through">
                         R$ 39,90
@@ -815,7 +815,7 @@ export default function Home() {
                   <div className="mt-3 md:mt-6">
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="text-lg font-bold text-green-700">
-                        R$ 26,90
+                        R$ 19,90
                       </span>
                       <span className="text-sm text-gray-500 line-through">
                         R$ 45,90
@@ -923,7 +923,7 @@ export default function Home() {
                   <div className="mt-3 md:mt-6">
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="text-lg font-bold text-green-700">
-                        R$ 27,90
+                        R$ 19,90
                       </span>
                       <span className="text-sm text-gray-500 line-through">
                         R$ 47,90

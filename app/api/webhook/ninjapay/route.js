@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
+import { headers } from "next/headers";
 
 // Função para gerar o hash SHA256 dos dados para anonimato, conforme exigido pelo Facebook
 const hash = (value) => {
@@ -19,6 +20,10 @@ export async function POST(req) {
 
       const { transaction, client, orderItems } = body;
 
+      // Obtém o cabeçalho do user-agent e o IP do cliente
+      const userAgent = headers().get("user-agent");
+      const clientIp = req.ip || headers().get("x-forwarded-for");
+
       const eventData = {
         // ID único da transação
         event_id: transaction.id,
@@ -26,18 +31,24 @@ export async function POST(req) {
         event_name: "Purchase",
         // Horário do evento (em segundos desde a época Unix)
         event_time: Math.floor(Date.now() / 1000),
-        // URL da página onde a compra ocorreu
-        event_source_url: `${
-          process.env.NEXT_PUBLIC_VERCEL_URL || "http://localhost:3000"
-        }/checkout/sucesso`,
+        // URL da página onde a compra ocorreu (a homepage, no seu caso)
+        event_source_url: `${req.nextUrl.origin}/`,
+        // Adicionando a fonte da ação para melhor atribuição
+        action_source: "website",
         // Parâmetros do usuário (hasheado para privacidade)
         user_data: {
-          em: client.email ? hash(client.email) : undefined,
-          ph: client.phone ? hash(client.phone.replace(/\D/g, "")) : undefined,
+          // Envia o email e telefone como um array, seguindo a documentação
+          em: client.email ? [hash(client.email)] : undefined,
+          ph: client.phone
+            ? [hash(client.phone.replace(/\D/g, ""))]
+            : undefined,
           fn: client.name ? hash(client.name.split(" ")[0]) : undefined,
           ln: client.name
             ? hash(client.name.split(" ").slice(1).join(" "))
             : undefined,
+          // Inclui o IP e o User-Agent para melhorar a correspondência
+          client_ip_address: clientIp,
+          client_user_agent: userAgent,
         },
         // Dados personalizados da conversão
         custom_data: {
@@ -47,7 +58,7 @@ export async function POST(req) {
           content_type: "product",
           contents: orderItems.map((item) => ({
             id: item.product.externalId,
-            quantity: 1, // Assumindo uma quantidade de 1 por item na sua estrutura
+            quantity: 1,
             item_price: item.price,
           })),
         },
