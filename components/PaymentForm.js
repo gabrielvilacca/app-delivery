@@ -8,11 +8,8 @@ import { Button } from "@/components/ui/button";
 
 export const PaymentForm = () => {
   const router = useRouter();
-  // Novo estado para controlar as etapas do formulário
   const [step, setStep] = useState(1);
-  // Estado para controlar a visibilidade do botão de rastreamento
-  const [showTrackingButton, setShowTrackingButton] = useState(false);
-  // Estado para a notificação de cópia
+  const [isPaymentConfirmed, setIsPaymentConfirmed] = useState(false);
   const [copyStatus, setCopyStatus] = useState(null);
 
   const [formData, setFormData] = useState({
@@ -47,16 +44,35 @@ export const PaymentForm = () => {
     }
   }, []);
 
-  // UseEffect para o timer do botão de rastreamento
+  // UseEffect para o polling do status do pagamento
   useEffect(() => {
+    let pollingInterval;
+
     if (pixData) {
-      // Inicia o timer de 5 segundos
-      const timer = setTimeout(() => {
-        setShowTrackingButton(true);
-      }, 5000);
-      // Limpa o timer se o componente for desmontado ou pixData mudar
-      return () => clearTimeout(timer);
+      // Inicia o polling a cada 3 segundos
+      pollingInterval = setInterval(async () => {
+        try {
+          const response = await fetch(
+            `/api/check-payment-status?transactionId=${pixData.identifier}`
+          );
+          const data = await response.json();
+
+          if (data.confirmed) {
+            setIsPaymentConfirmed(true);
+            // Para o polling assim que o pagamento for confirmado
+            clearInterval(pollingInterval);
+            console.log(
+              "Pagamento confirmado! O botão de rastreamento será exibido."
+            );
+          }
+        } catch (err) {
+          console.error("Erro no polling de pagamento:", err);
+        }
+      }, 3000); // Poll a cada 3 segundos
     }
+
+    // Limpa o intervalo quando o componente for desmontado
+    return () => clearInterval(pollingInterval);
   }, [pixData]);
 
   const handleChange = (e) => {
@@ -96,7 +112,6 @@ export const PaymentForm = () => {
     }));
     const totalAmount = orderItems.reduce((sum, item) => sum + item.price, 0);
 
-    // Payload para o backend: O endereço NÃO é incluído
     const payload = {
       totalAmount,
       client: {
@@ -173,7 +188,7 @@ export const PaymentForm = () => {
             <p className="text-green-500 text-sm mt-2">{copyStatus}</p>
           )}
 
-          {showTrackingButton && (
+          {isPaymentConfirmed && (
             <Button
               onClick={() => router.push("/track-order")}
               className="w-full py-4 mt-4 bg-yellow-400 text-black font-bold rounded-lg hover:bg-yellow-500 transition-colors"

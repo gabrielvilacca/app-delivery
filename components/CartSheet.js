@@ -82,7 +82,7 @@ export const CartSheet = ({ open, onOpenChange }) => {
   return (
     <div className="flex flex-col h-full bg-[#f4f5f7]">
       <div className="flex justify-between items-center bg-white p-4 border-b">
-        <h2 className="text-xl font-bold">Imperio dos Combos</h2>
+        <h2 className="text-xl font-bold">Carrinho</h2>
       </div>
 
       <div className="flex-1 p-4 overflow-y-auto">
