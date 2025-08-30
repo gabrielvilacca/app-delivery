@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PlusCircle, MinusCircle } from "lucide-react";
 
 // NOTE: Substitua os caminhos de importação das imagens pelos seus próprios.
@@ -59,7 +59,7 @@ const bebidas = [
   },
   {
     id: "fantalata",
-    nome: "Fanta Zero 350ml",
+    nome: "Fanta 350ml",
     descricao: "Lata 350l",
     preco: 4.0,
     imagem: FantaLata,
@@ -119,55 +119,57 @@ const Bebidas = () => {
   // Estado para armazenar as quantidades de cada bebida
   const [quantidades, setQuantidades] = useState({});
 
-  // Função para adicionar ou remover itens
+  // Carregar carrinho inicial do localStorage
+  useEffect(() => {
+    const carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+    const qtds = {};
+    carrinho.forEach((item) => {
+      qtds[item.id] = item.quantidade;
+    });
+    setQuantidades(qtds);
+  }, []);
+
+  // Atualiza o localStorage sempre que o cliente clicar em + ou -
   const handleQuantityChange = (id, tipo) => {
     setQuantidades((prev) => {
       const novaQuantidade = (prev[id] || 0) + (tipo === "adicionar" ? 1 : -1);
-      if (novaQuantidade >= 0) {
-        return {
-          ...prev,
-          [id]: novaQuantidade,
-        };
-      }
-      return prev;
-    });
-  };
 
-  // Função para adicionar os itens ao carrinho e salvar no localStorage
-  const handleAddToCart = () => {
-    const carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+      if (novaQuantidade < 0) return prev; // não deixa ir negativo
 
-    // Adiciona cada item com quantidade maior que zero ao carrinho
-    Object.keys(quantidades).forEach((id) => {
-      const quantidade = quantidades[id];
-      if (quantidade > 0) {
-        const bebida = bebidas.find((b) => b.id === id);
+      // Atualizar o carrinho no localStorage
+      const carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+      const bebida = bebidas.find((b) => b.id === id);
+
+      const itemIndex = carrinho.findIndex((item) => item.id === id);
+
+      if (novaQuantidade === 0) {
+        // Se a quantidade for 0, remove do carrinho
+        if (itemIndex !== -1) {
+          carrinho.splice(itemIndex, 1);
+        }
+      } else {
         const itemCarrinho = {
           id: bebida.id,
           nome: bebida.nome,
-          quantidade: quantidade,
-          valorTotal: (bebida.preco * quantidade).toFixed(2),
+          quantidade: novaQuantidade,
+          valorTotal: (bebida.preco * novaQuantidade).toFixed(2),
         };
-        carrinho.push(itemCarrinho);
+
+        if (itemIndex !== -1) {
+          carrinho[itemIndex] = itemCarrinho; // atualiza item existente
+        } else {
+          carrinho.push(itemCarrinho); // adiciona novo
+        }
       }
+
+      localStorage.setItem("carrinho", JSON.stringify(carrinho));
+
+      return {
+        ...prev,
+        [id]: novaQuantidade,
+      };
     });
-
-    localStorage.setItem("carrinho", JSON.stringify(carrinho));
-    alert("Bebidas adicionadas ao carrinho!");
-
-    // Limpar o estado após adicionar ao carrinho
-    setQuantidades({});
   };
-
-  // Calcula o valor total dos itens selecionados
-  const totalValue = Object.keys(quantidades)
-    .reduce((total, id) => {
-      const quantidade = quantidades[id];
-      const bebida = bebidas.find((b) => b.id === id);
-      return total + bebida.preco * quantidade;
-    }, 0)
-    .toFixed(2)
-    .replace(".", ",");
 
   return (
     <div className="">
@@ -225,17 +227,6 @@ const Bebidas = () => {
             </div>
           </Card>
         ))}
-      </div>
-      <div className="sticky my-4 flex items-center justify-between space-x-4 border-gray-200 shadow-md">
-        <button
-          onClick={handleAddToCart}
-          className="flex flex-col items-center justify-center w-full py-4 text-white bg-green-400 rounded-lg hover:bg-green-500 transition-colors"
-        >
-          <span className="font-bold text-xl">
-            Adicionar Bebida Selecionada
-          </span>
-          <span className="ml-2 font-bold text-xl">R${totalValue}</span>
-        </button>
       </div>
     </div>
   );
