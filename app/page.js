@@ -44,6 +44,7 @@ import Grande from "@/public/sorvetes/grande.jpeg";
 import BarcaAcai from "@/public/sorvetes/barca.jpeg";
 import Familia from "@/public/promocao/familia.jpeg";
 import Festa from "@/public/promocao/festa.jpeg";
+import AmericanMix from "@/public/promocao/AmericanMix.jpeg";
 import Bebidas from "@/components/Bebidas";
 
 export default function Home() {
@@ -284,6 +285,44 @@ export default function Home() {
                     <div className="lazyload-wrapper w-full h-full">
                       <Image
                         src={MiniBurgers}
+                        alt="Compre 12 Esfihas com [15% off]"
+                        className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+
+            <Link href="/promocao/americanMix" passHref>
+              <Card className="border-2 border-yellow-400 shadow-lg shadow-yellow-400 animate-scale-pulse  relative flex flex-row w-full h-full p-2 min-h-28 cursor-pointer">
+                <div className="flex flex-col justify-between flex-1 p-2">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-medium leading-6 text-gray-700 line-clamp-2">
+                      Combo American Mix
+                    </h3>
+                    <p className="text-sm font-normal text-gray-500 ">
+                      🍗 Frango frito crocante 🧅 Anéis de cebola empanados 🟠
+                      Bolinhas de queijo 🌭 Pão com carne moída + cheddar +
+                      bacon crocante 🥫 Molho barbecue & Molho de maionese verde
+                    </p>
+                  </div>
+                  <div className="mt-3 md:mt-6">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-lg font-bold text-green-700">
+                        R$ 32,9
+                      </span>
+                      <span className="text-sm text-gray-500 line-through">
+                        R$ 120,00
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-1 ml-4">
+                  <div className="overflow-hidden rounded-lg w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30">
+                    <div className="lazyload-wrapper w-full h-full">
+                      <Image
+                        src={AmericanMix}
                         alt="Compre 12 Esfihas com [15% off]"
                         className="bg-gray-100 object-cover object-center w-28 h-28 lg:w-32 lg:h-32 sm:w-30 sm:h-30 block"
                       />
