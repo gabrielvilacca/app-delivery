@@ -140,12 +140,12 @@ export default function Hero() {
                 <span className="text-gray-400">Perto de você</span>
               ) : error ? (
                 <div className="flex items-center">
-                  <span className="text-red-500">Erro: {error}</span>
+                  <span className="text-red-500">Perto de você</span>
                   <button
                     onClick={handleRetry}
                     className="ml-2 text-blue-500 hover:text-blue-700 text-xs underline"
                   >
-                    Tentar novamente
+                    Encontrar mais perto
                   </button>
                 </div>
               ) : (
