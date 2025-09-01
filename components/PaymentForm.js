@@ -1,17 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { Copy, Loader2, ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { PixDisplay } from "./PixDisplay"; // Importa o componente para exibir o Pix
 
 export const PaymentForm = () => {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [isPaymentConfirmed, setIsPaymentConfirmed] = useState(false);
-  const [copyStatus, setCopyStatus] = useState(null);
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -134,8 +132,10 @@ export const PaymentForm = () => {
         throw new Error(data.error || "Falha na requisição. Tente novamente.");
       }
 
-      setPixData({ ...data.pix, transactionId: data.transactionId });
-      console.log("URL da Imagem Pix:", data.pix.image); // Adicionado para depuração
+      setPixData({
+        pixCode: data.pix.code,
+        transactionId: data.transactionId,
+      });
     } catch (err) {
       setError(err.message);
     } finally {
@@ -143,60 +143,13 @@ export const PaymentForm = () => {
     }
   };
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(pixData.code);
-    setCopyStatus("Código Pix copiado!");
-    setTimeout(() => setCopyStatus(null), 3000);
-  };
-
-  const qrCodeSrc =
-    pixData?.image || `data:image/png;base64,${pixData?.base64}`;
-
   return (
     <div className="flex flex-col items-center p-4">
       {pixData ? (
-        <div className="flex flex-col items-center text-center">
-          <h3 className="text-xl font-bold mb-4 text-zinc-800">
-            Pagamento via Pix
-          </h3>
-          <p className="text-gray-600 mb-4">
-            Escaneie o QR Code com o app do seu banco ou use o código Pix copia
-            e cola.
-          </p>
-          <div className="w-64 h-64 bg-white p-2 border rounded-lg shadow-md mb-4">
-            {/* Agora a variável qrCodeSrc garante um valor src válido */}
-            <Image
-              src={qrCodeSrc}
-              alt="QR Code Pix"
-              width={256}
-              height={256}
-              className="w-full h-full object-contain"
-            />
-          </div>
-          <div className="w-full bg-gray-100 p-4 rounded-lg border-dashed border-2 border-gray-300 mb-4">
-            <p className="text-sm break-all font-mono text-gray-700">
-              {pixData.code}
-            </p>
-          </div>
-          <Button
-            onClick={copyToClipboard}
-            className="w-full py-4 bg-yellow-400 text-black font-bold rounded-lg hover:bg-yellow-500 transition-colors"
-          >
-            <Copy size={16} className="mr-2" /> Copiar Código
-          </Button>
-          {copyStatus && (
-            <p className="text-green-500 text-sm mt-2">{copyStatus}</p>
-          )}
-
-          {isPaymentConfirmed && (
-            <Button
-              onClick={() => router.push("/track-order")}
-              className="w-full py-4 mt-4 bg-yellow-400 text-black font-bold rounded-lg hover:bg-yellow-500 transition-colors"
-            >
-              Acompanhar a entrega
-            </Button>
-          )}
-        </div>
+        <PixDisplay
+          pixData={pixData}
+          onPaymentConfirmed={() => router.push("/track-order")}
+        />
       ) : (
         <form onSubmit={handleSubmit} className="w-full space-y-6">
           {step === 1 ? (

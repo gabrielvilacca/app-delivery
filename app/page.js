@@ -14,7 +14,7 @@ import { Card } from "@/components/ui/card";
 import Combo from "@/public/exemplo-combo.jpeg";
 import Link from "next/link";
 import { ShoppingBag } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { CartSheet } from "@/components/CartSheet";
 import Coments from "@/components/Coments";
@@ -48,32 +48,40 @@ import AmericanMix from "@/public/promocao/AmericanMix.jpeg";
 import Bebidas from "@/components/Bebidas";
 
 export default function Home() {
-  const [cartSummary, setCartSummary] = useState(null);
+  // Estado principal do carrinho
+  const [carrinho, setCarrinho] = useState([]);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-  // Lê o localStorage quando o componente é montado
+  // Efeito para carregar o carrinho do localStorage na montagem inicial
   useEffect(() => {
-    const carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+    const carrinhoSalvo = JSON.parse(localStorage.getItem("carrinho") || "[]");
+    setCarrinho(carrinhoSalvo);
+  }, []);
 
+  // Função para atualizar o carrinho, chamada pelos componentes filhos (como Bebidas)
+  const handleUpdateCarrinho = (novoCarrinho) => {
+    setCarrinho(novoCarrinho);
+    localStorage.setItem("carrinho", JSON.stringify(novoCarrinho));
+  };
+
+  // Calcula o resumo do carrinho de forma eficiente
+  const cartSummary = useMemo(() => {
     let totalQuantidade = 0;
     let totalValor = 0;
 
     carrinho.forEach((item) => {
       totalQuantidade += item.quantidade;
-      // CONVERSÃO DE STRING PARA NÚMERO
       totalValor += parseFloat(item.valorTotal);
     });
 
     if (totalQuantidade > 0) {
-      const summary = {
+      return {
         count: totalQuantidade,
         totalPrice: totalValor.toFixed(2).replace(".", ","),
       };
-      setCartSummary(summary);
-    } else {
-      setCartSummary(null);
     }
-  }, []);
+    return null;
+  }, [carrinho]); // O cálculo só é refeito quando o estado do 'carrinho' muda.
 
   // Função para lidar com a navegação na página
   const handleScrollToSection = (id) => {
@@ -1286,7 +1294,10 @@ export default function Home() {
             Selecione as bebidas que você quer e clique no botão de
             &quot;Adicionar Bebida Selecionada&quot;.
           </p>
-          <Bebidas />
+          <Bebidas
+            carrinho={carrinho}
+            onUpdateCarrinho={handleUpdateCarrinho}
+          />
         </div>
 
         {/* Comentarios */}
@@ -1294,7 +1305,7 @@ export default function Home() {
       </div>
       {/* Botão flutuante "Ver sacola" */}
       {/* Botão flutuante "Ver sacola" */}
-      {/* Botão flutuante "Ver sacola" */}
+      {/* Botão do carrinho, agora reativo ao estado do carrinho */}
       {cartSummary && cartSummary.count > 0 && (
         <div className="fixed bottom-0 left-0 right-0 p-4">
           <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
@@ -1313,7 +1324,12 @@ export default function Home() {
               </button>
             </SheetTrigger>
             <SheetContent side="bottom" className="w-full h-full p-0">
-              <CartSheet open={isSheetOpen} onOpenChange={setIsSheetOpen} />
+              <CartSheet
+                open={isSheetOpen}
+                onOpenChange={setIsSheetOpen}
+                carrinho={carrinho}
+                onUpdateCarrinho={handleUpdateCarrinho}
+              />
             </SheetContent>
           </Sheet>
         </div>

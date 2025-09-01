@@ -17,20 +17,22 @@ export async function POST(req) {
       );
     }
 
-    // Obter o host de forma mais robusta em Next.js
+    // Limpa os campos de telefone e documento, removendo todos os caracteres não-dígitos
+    const cleanedDocument = client.document.replace(/\D/g, "");
+    const cleanedPhone = client.phone.replace(/\D/g, "");
+
     const callbackUrl = `${req.nextUrl.origin}/api/webhook/ninjapay`;
 
     const ninjapayBody = {
       identifier: `pedido-${Date.now()}-${Math.random()
         .toString(36)
         .substring(2, 8)}`,
-      // Converter para número antes de enviar para a API da NinjaPay
       amount: parseFloat(totalAmount),
       client: {
         name: client.name,
         email: client.email,
-        phone: client.phone,
-        document: client.document,
+        phone: cleanedPhone, // Usa o número limpo
+        document: cleanedDocument, // Usa o documento limpo
       },
       callbackUrl: callbackUrl,
     };
@@ -49,7 +51,7 @@ export async function POST(req) {
     );
 
     const data = await response.json();
-    console.log("Resposta completa da NinjaPay:", data); // AQUI! Verifique essa resposta no seu console do servidor
+    console.log("Resposta completa da NinjaPay:", data);
 
     if (!response.ok) {
       console.error("Erro na requisição da NinjaPay:", data);

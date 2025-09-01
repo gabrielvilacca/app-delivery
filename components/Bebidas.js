@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { PlusCircle, MinusCircle } from "lucide-react";
+import { Card } from "./ui/card";
 
 // NOTE: Substitua os caminhos de importação das imagens pelos seus próprios.
 import CocaLitro from "@/public/bebidas/coca-litro.jpg";
@@ -18,7 +19,6 @@ import PepsiLitro from "@/public/bebidas/pepsi-litro.jpeg";
 import PepsiZeroLitro from "@/public/bebidas/pepsi-zero-litro.jpg";
 import PepsiLata from "@/public/bebidas/pepsi-lata.jpg";
 import SpriteLitro from "@/public/bebidas/sprite-litro.jpg";
-import { Card } from "./ui/card";
 
 // Array de dados com as informações das bebidas
 const bebidas = [
@@ -115,60 +115,39 @@ const bebidas = [
   },
 ];
 
-const Bebidas = () => {
-  // Estado para armazenar as quantidades de cada bebida
-  const [quantidades, setQuantidades] = useState({});
-
-  // Carregar carrinho inicial do localStorage
-  useEffect(() => {
-    const carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
-    const qtds = {};
-    carrinho.forEach((item) => {
-      qtds[item.id] = item.quantidade;
-    });
-    setQuantidades(qtds);
-  }, []);
-
-  // Atualiza o localStorage sempre que o cliente clicar em + ou -
+export const Bebidas = ({ carrinho, onUpdateCarrinho }) => {
   const handleQuantityChange = (id, tipo) => {
-    setQuantidades((prev) => {
-      const novaQuantidade = (prev[id] || 0) + (tipo === "adicionar" ? 1 : -1);
+    const novaQuantidade =
+      (carrinho.find((item) => item.id === id)?.quantidade || 0) +
+      (tipo === "adicionar" ? 1 : -1);
 
-      if (novaQuantidade < 0) return prev; // não deixa ir negativo
+    if (novaQuantidade < 0) return;
 
-      // Atualizar o carrinho no localStorage
-      const carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
-      const bebida = bebidas.find((b) => b.id === id);
+    const novaLista = [...carrinho];
+    const itemIndex = novaLista.findIndex((item) => item.id === id);
+    const bebida = bebidas.find((b) => b.id === id);
 
-      const itemIndex = carrinho.findIndex((item) => item.id === id);
-
-      if (novaQuantidade === 0) {
-        // Se a quantidade for 0, remove do carrinho
-        if (itemIndex !== -1) {
-          carrinho.splice(itemIndex, 1);
-        }
-      } else {
-        const itemCarrinho = {
-          id: bebida.id,
-          nome: bebida.nome,
-          quantidade: novaQuantidade,
-          valorTotal: (bebida.preco * novaQuantidade).toFixed(2),
-        };
-
-        if (itemIndex !== -1) {
-          carrinho[itemIndex] = itemCarrinho; // atualiza item existente
-        } else {
-          carrinho.push(itemCarrinho); // adiciona novo
-        }
+    if (novaQuantidade === 0) {
+      if (itemIndex !== -1) {
+        novaLista.splice(itemIndex, 1);
       }
-
-      localStorage.setItem("carrinho", JSON.stringify(carrinho));
-
-      return {
-        ...prev,
-        [id]: novaQuantidade,
+    } else {
+      const novoItem = {
+        id: bebida.id,
+        nome: bebida.nome,
+        quantidade: novaQuantidade,
+        valorTotal: (bebida.preco * novaQuantidade).toFixed(2),
       };
-    });
+
+      if (itemIndex !== -1) {
+        novaLista[itemIndex] = novoItem;
+      } else {
+        novaLista.push(novoItem);
+      }
+    }
+
+    // Agora, em vez de salvar no localStorage, chamamos a função do componente pai
+    onUpdateCarrinho(novaLista);
   };
 
   return (
@@ -207,15 +186,14 @@ const Bebidas = () => {
               <div className="flex items-center justify-center space-x-2 mt-2">
                 <button
                   onClick={() => handleQuantityChange(bebida.id, "remover")}
-                  disabled={
-                    quantidades[bebida.id] === 0 || !quantidades[bebida.id]
-                  }
+                  disabled={!carrinho.find((item) => item.id === bebida.id)}
                   className="text-gray-600 disabled:text-gray-300"
                 >
                   <MinusCircle size={24} />
                 </button>
                 <span className="font-bold text-lg w-6 text-center">
-                  {quantidades[bebida.id] || 0}
+                  {carrinho.find((item) => item.id === bebida.id)?.quantidade ||
+                    0}
                 </span>
                 <button
                   onClick={() => handleQuantityChange(bebida.id, "adicionar")}
