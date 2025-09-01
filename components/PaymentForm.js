@@ -44,22 +44,19 @@ export const PaymentForm = () => {
     }
   }, []);
 
-  // UseEffect para o polling do status do pagamento
   useEffect(() => {
     let pollingInterval;
 
-    if (pixData) {
-      // Inicia o polling a cada 3 segundos
+    if (pixData?.transactionId) {
       pollingInterval = setInterval(async () => {
         try {
           const response = await fetch(
-            `/api/check-payment-status?transactionId=${pixData.identifier}`
+            `/api/check-payment-status?transactionId=${pixData.transactionId}`
           );
           const data = await response.json();
 
           if (data.confirmed) {
             setIsPaymentConfirmed(true);
-            // Para o polling assim que o pagamento for confirmado
             clearInterval(pollingInterval);
             console.log(
               "Pagamento confirmado! O botão de rastreamento será exibido."
@@ -68,10 +65,9 @@ export const PaymentForm = () => {
         } catch (err) {
           console.error("Erro no polling de pagamento:", err);
         }
-      }, 3000); // Poll a cada 3 segundos
+      }, 3000);
     }
 
-    // Limpa o intervalo quando o componente for desmontado
     return () => clearInterval(pollingInterval);
   }, [pixData]);
 
@@ -108,7 +104,7 @@ export const PaymentForm = () => {
     const orderItems = cartItems.map((item) => ({
       name: item.nome,
       quantity: item.quantidade,
-      price: item.valorTotal,
+      price: parseFloat(item.valorTotal),
     }));
     const totalAmount = orderItems.reduce((sum, item) => sum + item.price, 0);
 
@@ -138,7 +134,8 @@ export const PaymentForm = () => {
         throw new Error(data.error || "Falha na requisição. Tente novamente.");
       }
 
-      setPixData(data.pix);
+      setPixData({ ...data.pix, transactionId: data.transactionId });
+      console.log("URL da Imagem Pix:", data.pix.image); // Adicionado para depuração
     } catch (err) {
       setError(err.message);
     } finally {
@@ -152,10 +149,12 @@ export const PaymentForm = () => {
     setTimeout(() => setCopyStatus(null), 3000);
   };
 
+  const qrCodeSrc =
+    pixData?.image || `data:image/png;base64,${pixData?.base64}`;
+
   return (
     <div className="flex flex-col items-center p-4">
       {pixData ? (
-        // Tela de sucesso com QR Code
         <div className="flex flex-col items-center text-center">
           <h3 className="text-xl font-bold mb-4 text-zinc-800">
             Pagamento via Pix
@@ -165,8 +164,9 @@ export const PaymentForm = () => {
             e cola.
           </p>
           <div className="w-64 h-64 bg-white p-2 border rounded-lg shadow-md mb-4">
+            {/* Agora a variável qrCodeSrc garante um valor src válido */}
             <Image
-              src={`data:image/png;base64,${pixData.base64}`}
+              src={qrCodeSrc}
               alt="QR Code Pix"
               width={256}
               height={256}
@@ -198,10 +198,8 @@ export const PaymentForm = () => {
           )}
         </div>
       ) : (
-        // Fluxo de formulário em etapas
         <form onSubmit={handleSubmit} className="w-full space-y-6">
           {step === 1 ? (
-            // Etapa 1: Dados do Cliente
             <>
               <h3 className="text-xl font-bold text-center text-zinc-800">
                 Seus dados para o pedido
@@ -274,7 +272,6 @@ export const PaymentForm = () => {
               </Button>
             </>
           ) : (
-            // Etapa 2: Dados de Entrega
             <>
               <h3 className="text-xl font-bold text-center text-zinc-800">
                 Onde devemos entregar?

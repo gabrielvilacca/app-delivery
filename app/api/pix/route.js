@@ -49,6 +49,7 @@ export async function POST(req) {
     );
 
     const data = await response.json();
+    console.log("Resposta completa da NinjaPay:", data); // AQUI! Verifique essa resposta no seu console do servidor
 
     if (!response.ok) {
       console.error("Erro na requisição da NinjaPay:", data);
